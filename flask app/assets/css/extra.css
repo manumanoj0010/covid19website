@@ -1,0 +1,17 @@
+.btn-success {
+    color: #212529;
+    background-color: #a8df65;
+    border-color: #a8df65;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+}
+.block-title h3 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 60px;
+    color: var(--thm-black);
+}

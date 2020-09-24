@@ -29,10 +29,6 @@ def index():
 def contact():
    return render_template('contact.html')
 
-@app.route('/news.html')
-def news():
-   return render_template('news.html')
-
 @app.route('/about.html')
 def about():
    return render_template('about.html')
@@ -41,9 +37,9 @@ def about():
 def faqs():
    return render_template('blog.html')
 
-@app.route('/prevention.html')
+@app.route('/symptoms.html')
 def prevention():
-   return render_template('prevention.html')
+   return render_template('symptoms.html')
 
 @app.route('/upload.html')
 def upload():
@@ -53,10 +49,6 @@ def upload():
 def upload_chest():
    return render_template('upload_chest.html')
 
-
-@app.route('/upload_ct.html')
-def upload_ct():
-   return render_template('upload_ct.html')
 
 @app.route('/uploaded_chest', methods = ['POST', 'GET'])
 def uploaded_chest():

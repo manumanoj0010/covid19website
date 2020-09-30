@@ -88,12 +88,16 @@
 
                       </div>
                     </div>
-
                 </div>
-             
             </div>
         </div>
     </section>
-
+    <script type="text/javascript">
+        
+      function showname () {
+    var name_1 = document.getElementById('file-upload_1'); 
+    document.getElementById('label_1').innerHTML = name_1.files.item(0).name; 
+  };
+  </script>
 
     {% endblock %}

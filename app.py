@@ -69,8 +69,8 @@ def uploaded_chest():
 
    resnet_chest = load_model('models/resnet_chest.h5')
    vgg_chest = load_model('models/vgg_chest.h5')
-   # inception_chest = load_model('models/inceptionv3_chest.h5')
-   # xception_chest = load_model('models/xception_chest.h5')
+   inception_chest = load_model('models/inceptionv3_chest.h5')
+   xception_chest = load_model('models/xception_chest.h5')
 
    image = cv2.imread('./flask app/assets/images/upload_chest.jpg') # read file 
    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # arrange format as per keras
@@ -96,25 +96,25 @@ def uploaded_chest():
       vgg_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
    print(vgg_chest_pred)
 
-#    inception_pred = inception_chest.predict(image)
-#    probability = inception_pred[0]
-#    print("Inception Predictions:")
-#    if probability[0] > 0.5:
-#       inception_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
-#    else:
-#       inception_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
-#    print(inception_chest_pred)
+   inception_pred = inception_chest.predict(image)
+   probability = inception_pred[0]
+   print("Inception Predictions:")
+   if probability[0] > 0.5:
+      inception_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
+   else:
+      inception_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
+   print(inception_chest_pred)
 
-#    xception_pred = xception_chest.predict(image)
-#    probability = xception_pred[0]
-#    print("Xception Predictions:")
-#    if probability[0] > 0.5:
-#       xception_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
-#    else:
-#       xception_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
-#    print(xception_chest_pred)
+   xception_pred = xception_chest.predict(image)
+   probability = xception_pred[0]
+   print("Xception Predictions:")
+   if probability[0] > 0.5:
+      xception_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
+   else:
+      xception_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
+   print(xception_chest_pred)
 
-   return render_template('results_chest.html',resnet_chest_pred=resnet_chest_pred , vgg_chest_pred=vgg_chest_pred)
+   return render_template('results_chest.html',resnet_chest_pred=resnet_chest_pred , vgg_chest_pred=vgg_chest_pred, inception_chest_pred= inception_chest_pred, xception_chest_pred=xception_chest_pred)
 
 if __name__ == '__main__':
    app.secret_key = ".."

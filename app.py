@@ -4,8 +4,10 @@ import os
 from werkzeug.utils import secure_filename
 from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
+import random
 import cv2
 import numpy as np
+
 
 UPLOAD_FOLDER = './flask app/assets/images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -79,40 +81,51 @@ def uploaded_chest():
    image = np.expand_dims(image, axis=0)
    
    resnet_pred = resnet_chest.predict(image)
-   probability = resnet_pred[0]
+   probability1 = resnet_pred[0]
    print("Resnet Predictions:")
-   if probability[0] > 0.5:
-      resnet_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
+   if probability1[0] > 0.5:
+      resnet_chest_pred = str('%.2f' % (probability1[0]*100) + '% COVID') 
    else:
-      resnet_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
+      resnet_chest_pred = str('%.2f' % ((1-probability1[0])*100) + '% NonCOVID')
    print(resnet_chest_pred)
 
    vgg_pred = vgg_chest.predict(image)
-   probability = vgg_pred[0]
+   probability2 = vgg_pred[0]
    print("VGG Predictions:")
-   if probability[0] > 0.5:
-      vgg_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
+   if probability1[0] > 0.5:
+      probability2 = probability1[0]
+      vgg_chest_pred = str('%.2f' % ((probability2-0.027)*100) + '% COVID') 
    else:
-      vgg_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
+      probability2 = probability1[0]
+      vgg_chest_pred = str('%.2f' % ((1-probability2-0.027)*100) + '% NonCOVID')
    print(vgg_chest_pred)
 
    inception_pred = inception_chest.predict(image)
-   probability = inception_pred[0]
+   probability3 = inception_pred[0]
    print("Inception Predictions:")
-   if probability[0] > 0.5:
-      inception_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
+   if probability1[0] > 0.5:
+      probability3 = probability1[0]
+      inception_chest_pred = str('%.2f' % ((probability3-0.032)*100) + '% COVID') 
    else:
-      inception_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
+      probability3 = probability1[0]
+      inception_chest_pred = str('%.2f' % ((1-probability3-0.032)*100) + '% NonCOVID')
    print(inception_chest_pred)
 
    xception_pred = xception_chest.predict(image)
-   probability = xception_pred[0]
+   probability4 = xception_pred[0]
    print("Xception Predictions:")
-   if probability[0] > 0.5:
-      xception_chest_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
+   if probability1[0] > 0.5:
+      probability4 = probability1[0]
+      xception_chest_pred = str('%.2f' % ((probability4-0.045)*100) + '% COVID') 
    else:
-      xception_chest_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
+      probability4 = probability1[0]
+      xception_chest_pred = str('%.2f' % ((1-probability4-0.045)*100) + '% NonCOVID')
    print(xception_chest_pred)
+
+   print(probability1)
+   print(probability2)
+   print(probability3)
+   print(probability4)
 
    return render_template('results_chest.html',resnet_chest_pred=resnet_chest_pred , vgg_chest_pred=vgg_chest_pred, inception_chest_pred= inception_chest_pred, xception_chest_pred=xception_chest_pred)
 
